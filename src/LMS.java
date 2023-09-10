@@ -2,8 +2,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
     public class LMS {
-        private List<Book> books = new ArrayList<>();
+        private final List<Book> books = new ArrayList<>();
 
+
+        /** The following method splits a line of text from the file into the data for each
+         * property of the Book object
+         */
         public void loadBooksFromFile(String filePath) {
             try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
                 String line;
@@ -20,18 +24,11 @@ import java.util.List;
                 e.printStackTrace();
             }
         }
-        public void saveBooksToFile(String filePath) {
-            try (PrintWriter writer = new PrintWriter(filePath)) {
-                for (Book book : books) {
-                    writer.println(book.getId() + "," + book.getTitle() + "," + book.getAuthor());
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        /** This method allows the user to add additional books once the ones from
+         * the text file have been added, which is not explicitly required but could
+         * be useful functionality */
         public void addUserInputBooks(BufferedReader reader) throws IOException {
-            System.out.print("Enter Book ID: ");
-            int id = Integer.parseInt(reader.readLine());
+            int id = books.size() + 1;
             System.out.print("Enter Book Title: ");
             String title = reader.readLine();
             System.out.print("Enter Book Author: ");
@@ -46,16 +43,30 @@ import java.util.List;
             int id = Integer.parseInt(reader.readLine());
             books.removeIf(book -> book.getId() == id);
             System.out.println("Book with ID " + id + " removed.");
-        }
-        public void listAllBooks() {
-            if (books.isEmpty()) {
-                System.out.println("No books in the library.");
-            } else {
-                System.out.println("Books in the library:");
-                for (Book book : books) {
-                    System.out.println(book);
-                }
-            }
+            reassignIds();
         }
 
-    }
+            public void listAllBooks () {
+                if (books.isEmpty()) {
+                    System.out.println("No books in the library.");
+                } else {
+                    System.out.println("Books in the library:");
+                    for (Book book : books) {
+                        System.out.println(book);
+                    }
+                }
+            }
+
+        /** This assigns the id of each book based on its position in the collection.
+         * It is called when we remove a book so that, for example,  a first book of id 1,
+         * the second book becomes id 1, making sure each id is unique and to be less
+         * confusing to the user avoiding a case in which they can see an id 4 but no id 3.
+         */
+        public void reassignIds() {
+            int idCounter = 1;
+            for (Book book : books) {
+                book.setId(idCounter++);
+            }
+        }
+        }
+

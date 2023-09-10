@@ -1,7 +1,7 @@
 class Book {
     private int id;
-    private String title;
-    private String author;
+    private final String title;
+    private final String author;
 
     public Book(int id, String title, String author) {
         this.id = id;
@@ -13,16 +13,15 @@ class Book {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
+    /** This is the only property with a setter since it is the only
+     * one that can change
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
-        return "ID: " + id + ", Title: " + title + ", Author: " + author;
+        return  id + "," + title + "," + author;
     }
 }

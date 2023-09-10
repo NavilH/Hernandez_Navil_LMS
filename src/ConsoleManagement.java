@@ -1,13 +1,18 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 public class ConsoleManagement {
-    private LMS librarySystem;
+    /** Declared an LMS object to use the methods of that class
+     */
+    private final LMS librarySystem;
 
     public ConsoleManagement(LMS librarySystem) {
         this.librarySystem = librarySystem;
     }
 
+    /** This method starts the program in the main method
+     */
     public void run() {
         boolean running = true;
         while (running) {
@@ -23,26 +28,20 @@ public class ConsoleManagement {
                 int choice = Integer.parseInt(reader.readLine());
 
                 switch (choice) {
-                    case 1:
-                        librarySystem.addUserInputBooks(reader);
-                        break;
-                    case 2:
-                        librarySystem.removeBookById(reader);
-                        break;
-                    case 3:
-                        librarySystem.listAllBooks();
-                        break;
-                    case 4:
-                        running = false;
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please try again.");
+                    case 1 -> librarySystem.addUserInputBooks(reader);
+                    case 2 -> librarySystem.removeBookById(reader);
+                    case 3 -> librarySystem.listAllBooks();
+                    case 4 -> running = false;
+                    default -> System.out.println("Invalid choice. Please try again.");
                 }
             } catch (IOException | NumberFormatException e) {
-                e.printStackTrace();
+                if (e instanceof NumberFormatException) {
+                    System.err.println("Enter a valid number.");
+                } else {
+                    e.printStackTrace();
+                }
             }
         }
-        librarySystem.saveBooksToFile("library.txt");
 
     }
 }
