@@ -1,3 +1,12 @@
+/** Navil Hernandez
+ * Software Development I
+ * 202410-CEN-3024C-16046
+ * 09-10-2023
+ */
+
+/**This class defines the properties of the Book objects contained
+ * in the collection
+ */
 class Book {
     private int id;
     private final String title;
