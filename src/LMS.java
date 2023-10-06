@@ -1,12 +1,14 @@
 /** Navil Hernandez
  * Software Development I
  * 202410-CEN-3024C-16046
- * 09-10-2023
+ * 10-06-2023
  */
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-  /** This class is for the functionality of the library management system**/
+import java.util.Objects;
+
+/** This class is for the functionality of the library management system**/
     public class LMS {
         private final List<Book> books = new ArrayList<>();
 
@@ -54,9 +56,79 @@ import java.util.List;
         public void removeBookById(BufferedReader reader) throws IOException {
             System.out.print("Enter Book ID to remove: ");
             int id = Integer.parseInt(reader.readLine());
-            books.removeIf(book -> book.getId() == id);
-            System.out.println("Book with ID " + id + " removed.");
+            if (!books.removeIf(book -> book.getId() == id))
+            {
+                System.out.println("Invalid choice. Please try again.");
+            }
+
+            else {
+                books.removeIf(book -> book.getId() == id);
+                System.out.println("Book with ID " + id + " removed.");
+            }
+
             reassignIds();
+        }
+
+    /** This method is named removeBookByTitle, it accepts an entered title, once it finds
+     * a match, it deletes that book from the collection and calls the reassignIds method
+     * Its return type is void and it takes a BufferedReader object as an argument
+     */
+
+        public void removeBookByTitle(BufferedReader reader) throws IOException {
+            System.out.println("Enter Book title to remove:  ");
+            String title = (reader.readLine());
+            if (!books.removeIf((book -> Objects.equals(book.getTitle(), title)))) {
+                System.out.println("Invalid choice. Please try again.");
+            }
+
+            else {
+                books.removeIf((book -> Objects.equals(book.getTitle(), title)));
+                System.out.println(title + " removed.");
+            }
+            reassignIds();
+        }
+
+    /** This method is named checkOutBook, it accepts an entered title, once it finds
+     * a match, it changes the status of that book to "checked out" and assigns a
+     * due date 4 weeks from the day. Its return type is void and it takes a
+     * BufferedReader object as an argument
+     */
+
+        public void checkOutBook(BufferedReader reader) throws IOException {
+            System.out.println("Enter Book Title to check out: ");
+            String title = (reader.readLine());
+            boolean bookFound = false;
+            for (Book book : books) {
+                if (Objects.equals(book.getTitle(), title)) {
+                    book.setStatus();
+                    //book.setDueDate();
+                    bookFound = true;
+                    break;
+                }
+            }
+            if (!bookFound) {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+    /** This method is named checkInBook, it accepts an entered title, once it finds
+     * a match, it changes the status of that book to "checked in" and the due date becomes
+     * null. Its return type is void and it takes a BufferedReader object as an argument
+     */
+        public void checkInBook(BufferedReader reader) throws IOException {
+            System.out.println("Enter Book Title to check in: ");
+            String title = (reader.readLine());
+            boolean bookFound = false;
+            for (Book book : books) {
+                if (Objects.equals(book.getTitle(), title)) {
+                    book.setStatus2();
+                    bookFound = true;
+                    break;
+                }
+            }
+            if (!bookFound) {
+                System.out.println("Invalid choice. Please try again.");
+            }
         }
 
       /** This method is named listAllBooks, it prints all the books of the collection

@@ -1,7 +1,7 @@
 /** Navil Hernandez
  * Software Development I
  * 202410-CEN-3024C-16046
- * 09-10-2023
+ * 10-06-2023
  */
 public class Main {
     /** This starts the program by declaring a new instance of the
@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) {
         LMS librarySystem = new LMS();
         ConsoleManagement consoleManagement = new ConsoleManagement(librarySystem);
-        librarySystem.loadBooksFromFile("C:/Users/navil/.jdks/corretto-17.0.8.1/LMS/src/library.txt");
         consoleManagement.run();
 
     }
