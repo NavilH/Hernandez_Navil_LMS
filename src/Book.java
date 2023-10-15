@@ -3,7 +3,6 @@
  * 202410-CEN-3024C-16046
  * 10-06-2023
  */
-
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -42,6 +41,9 @@ class Book {
     /** This setter is essential for the checking out function because
      * it also prints the error message and takes care of assigning the due date
      */
+    public String getAuthor() {
+        return author;
+    }
 
     public void setStatus() {
         if (Objects.equals(this.status, "checked in")) {
@@ -68,6 +70,12 @@ class Book {
         else {
             System.err.println("That book has already been checked in.");
         }
+    }
+    public String getStatus(){
+        return status;
+    }
+    public LocalDate getDueDate(){
+        return dueDate;
     }
 
     /**

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /** This class is for the functionality of the library management system**/
     public class LMS {
-        private final List<Book> books = new ArrayList<>();
+        public final List<Book> books = new ArrayList<>();
 
 
         /** The following method  named loadBooksFromFile splits a line of text from the file into the data for each
