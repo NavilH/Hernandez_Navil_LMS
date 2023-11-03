@@ -3,7 +3,6 @@
  * 202410-CEN-3024C-16046
  * 10-06-2023
  */
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
@@ -161,18 +160,6 @@ import java.util.*;
                     }
                 }
             }
-       public String listAllBooksGUI() {
-        StringBuilder result = new StringBuilder();
-        if (books.isEmpty()) {
-            result.append("No books in the library.");
-        } else {
-            result.append("Printing database...\n" + "Books in the library:\n");
-            for (Book book : books) {
-                result.append(book).append("\n");
-            }
-        }
-        return result.toString();
-    }
 
         /** This assigns the id of each book based on its position in the collection.
          * It is called when we remove a book so that, for example,  a first book of id 1,
@@ -187,8 +174,6 @@ import java.util.*;
             }
         }
 
-    public void removeBookByTitleGUI(BufferedReader bufferedReader) {
 
-    }
 }
 
