@@ -3,10 +3,9 @@
  * 202410-CEN-3024C-16046
  * 10-06-2023
  */
+import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /** This class is for the functionality of the library management system**/
     public class LMS {
@@ -69,10 +68,28 @@ import java.util.Objects;
             reassignIds();
         }
 
-    /** This method is named removeBookByTitle, it accepts an entered title, once it finds
-     * a match, it deletes that book from the collection and calls the reassignIds method
-     * Its return type is void and it takes a BufferedReader object as an argument
+    /** This overloaded method accepts an int as an argument for the purposes of the GUI.
+     *
      */
+    public void removeBookById(int id) throws IOException {
+        System.out.print("Enter Book ID to remove: ");
+        if (!books.removeIf(book -> book.getId() == id))
+        {
+            System.out.println("Invalid choice. Please try again.");
+        }
+
+        else {
+            books.removeIf(book -> book.getId() == id);
+            System.out.println("Book with ID " + id + " removed.");
+        }
+
+        reassignIds();
+    }
+
+            /** This method is named removeBookByTitle, it accepts an entered title, once it finds
+             * a match, it deletes that book from the collection and calls the reassignIds method
+             * Its return type is void and it takes a BufferedReader object as an argument
+             */
 
         public void removeBookByTitle(BufferedReader reader) throws IOException {
             System.out.println("Enter Book title to remove:  ");
@@ -144,6 +161,18 @@ import java.util.Objects;
                     }
                 }
             }
+       public String listAllBooksGUI() {
+        StringBuilder result = new StringBuilder();
+        if (books.isEmpty()) {
+            result.append("No books in the library.");
+        } else {
+            result.append("Printing database...\n" + "Books in the library:\n");
+            for (Book book : books) {
+                result.append(book).append("\n");
+            }
+        }
+        return result.toString();
+    }
 
         /** This assigns the id of each book based on its position in the collection.
          * It is called when we remove a book so that, for example,  a first book of id 1,
@@ -157,5 +186,9 @@ import java.util.Objects;
                 book.setId(idCounter++);
             }
         }
-        }
+
+    public void removeBookByTitleGUI(BufferedReader bufferedReader) {
+
+    }
+}
 
